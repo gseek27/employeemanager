@@ -22,7 +22,7 @@
 
                             </div>
                             <button v-on:click="login" class="btn btn-large grey lighten-4 black-text">Login</button>
-                                <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+                            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
                         </form>
                     </div>
                 </div>
