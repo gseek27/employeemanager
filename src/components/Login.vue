@@ -36,7 +36,7 @@
 
 
 <script>
-function onSuccess(googleUser) {
+/*function onSuccess(googleUser) {
           console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
         };
         function onFailure(error) {
@@ -52,7 +52,7 @@ function onSuccess(googleUser) {
             'onsuccess': onSuccess,
             'onfailure': onFailure
           });
-        };
+        };*/
 import firebase from 'firebase';
 export default {
     name: 'login',
