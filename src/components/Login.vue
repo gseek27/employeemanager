@@ -22,6 +22,7 @@
 
                             </div>
                             <button v-on:click="login" class="btn btn-large grey lighten-4 black-text">Login</button>
+                                <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
                             <button @click="socialLogin" class="social-button">Sign in with Google</button>
                         </form>
                     </div>
@@ -30,7 +31,6 @@
             </div>
         </div>
     </div>
-    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
 </template>
 
 
@@ -65,7 +65,7 @@ e.preventDefault();
             firebase.auth().signInWithPopup(provider).then((result) => {
                 this.$router.replace('home');
             }).catch((err) => {
-                alert.('Oops. ' + err.message)
+                alert('Oops. ' + err.message)
             });
 
         }
