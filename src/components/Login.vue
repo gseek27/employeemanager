@@ -24,7 +24,9 @@
                             <button v-on:click="login" class="btn btn-large grey lighten-4 black-text">Login</button>
                             <!--<div id="my-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
                             <button id="my-signin2" @click="socialLogin" class="social-button"></button>-->
-                              <div id="my-signin2">Sign in with Google</div>
+                              <div id="my-signin2" @click="socialLogin">Sign in with Google</div>
+                              <div class="g-signin2" data-width="300" data-height="200" data-longtitle="true">Sign in with Google</div>
+
                         </form>
                     </div>
                 </div>
@@ -77,7 +79,7 @@ export default {
             );
 e.preventDefault();
         },
-        onSignIn() {
+        socialLogin() {
             const provider = new firebase.auth.GoogleAuthProvider();
 
             firebase.auth().signInWithRedirect(provider).then((result) => {
@@ -89,7 +91,12 @@ e.preventDefault();
         },
         mounted() {
     gapi.signin2.render('my-signin2', { // this is the button "id"
-      onsuccess: this.onSignIn // note, no "()" here
+      onsuccess: this.onSignIn, // note, no "()" here
+  scope: 'email',
+  width: 200,
+  height: 50,
+  longtitle: true,
+  theme: 'dark'
     })
   }
     }
