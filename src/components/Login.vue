@@ -22,7 +22,7 @@
 
                             </div>
                             <button v-on:click="login" class="btn btn-large grey lighten-4 black-text">Login</button>
-                            
+                            <button @click="socialLogin" class="social-button">Sign in with Google</button>
                         </form>
                     </div>
                 </div>
@@ -58,7 +58,21 @@ export default {
             }
             );
 e.preventDefault();
+        },
+        socialLogin() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+
+            firebase.auth().signInWithPopup(provider).then((result) => {
+                this.$router.replace('home');
+            }).catch((err) => {
+                alert.('Oops. ' + err.message)
+            });
+
         }
     }
 }
+
+    
+    
+    
 </script>
