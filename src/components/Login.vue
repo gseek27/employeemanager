@@ -22,8 +22,9 @@
 
                             </div>
                             <button v-on:click="login" class="btn btn-large grey lighten-4 black-text">Login</button>
-                                <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-                            <button @click="socialLogin" class="social-button">Sign in with Google</button>
+                            <!--<div id="my-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+                            <button id="my-signin2" @click="socialLogin" class="social-button"></button>-->
+                              <div id="my-signin2" @click="socialLogin">Sign in with Google</div>
                         </form>
                     </div>
                 </div>
@@ -35,6 +36,23 @@
 
 
 <script>
+function onSuccess(googleUser) {
+          console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+        };
+        function onFailure(error) {
+          console.log(error);
+        };
+        function renderButton() {
+          gapi.signin2.render('my-signin2', {
+            'scope': 'profile email',
+            'width': 240,
+            'height': 50,
+            'longtitle': true,
+            'theme': 'dark',
+            'onsuccess': onSuccess,
+            'onfailure': onFailure
+          });
+        };
 import firebase from 'firebase';
 export default {
     name: 'login',
@@ -62,17 +80,20 @@ e.preventDefault();
         socialLogin() {
             const provider = new firebase.auth.GoogleAuthProvider();
 
-            firebase.auth().signInWithPopup(provider).then((result) => {
-                this.$router.replace('home');
+            firebase.auth().signInWithRedirect(provider).then((result) => {
+                this.$router.go({path: this.$router.path});
             }).catch((err) => {
                 alert('Oops. ' + err.message)
             });
 
-        }
+        },
+        mounted() {
+    gapi.signin2.render('my-signin2', { // this is the button "id"
+      //onsuccess: this.onSignIn // note, no "()" here
+    })
+  }
     }
 }
 
-    
-    
     
 </script>
