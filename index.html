@@ -9,4 +9,20 @@
     appId: "1:743609653742:web:3910c20f2740e858"
   };
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);</script><script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer=defer></script><script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script><script type=text/javascript src=/static/js/vendor.2f0a77e6351ec7df1811.js></script><script type=text/javascript src=/static/js/app.b9dd7b7b10b018bf15a9.js></script></body></html>
+  firebase.initializeApp(firebaseConfig);</script><script>function onSuccess(googleUser) {
+    console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+  }
+  function onFailure(error) {
+    console.log(error);
+  }
+  function renderButton() {
+    gapi.signin2.render('my-signin2', {
+      'scope': 'profile email',
+      'width': 240,
+      'height': 50,
+      'longtitle': true,
+      'theme': 'dark',
+      'onsuccess': onSuccess,
+      'onfailure': onFailure
+    });
+  }</script><script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer=defer></script><script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script><script type=text/javascript src=/static/js/vendor.2f0a77e6351ec7df1811.js></script><script type=text/javascript src=/static/js/app.b9dd7b7b10b018bf15a9.js></script></body></html>
