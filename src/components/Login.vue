@@ -23,14 +23,12 @@
                             </div>
                             <button v-on:click="login" class="btn btn-large grey lighten-4 black-text">Login</button>
                             <!--<div id="my-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>-->
-                              <br><br>
+                              
                               
                         </form>
                         
                     </div>
-                    <button id="my-signin2" @click="socialLogin">
-                                  <img alt="google logo" src="../assets/googlebtn4.png">
-                              </button>
+                    <div id="my-signin2" @click="socialLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>
                 </div>
             </div>
         </div>
@@ -78,10 +76,10 @@ e.preventDefault();
     gapi.signin2.render('my-signin2', { // this is the button "id"
       onsuccess: this.onSignIn, // note, no "()" here
   scope: 'email',
-  width: 200,
+  width: 150,
   height: 50,
   longtitle: true,
-  theme: 'dark'
+  theme: 'light'
     })
   }
     }
@@ -91,11 +89,11 @@ e.preventDefault();
 </script>
 
 <style scoped>
-#my-siginin2 {
-    width: 50px;
-    background: white;
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 65%;
 }
-#my-siginin2 img {
-width: 100%;
-}
+
 </style>
