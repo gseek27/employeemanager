@@ -25,7 +25,7 @@
                             <!--<div id="my-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
                             <button id="my-signin2" @click="socialLogin" class="social-button"></button>-->
                               <div id="my-signin2" @click="socialLogin">Sign in with Google</div>
-                              <div class="g-signin2" data-width="300" data-height="200" data-longtitle="true">Sign in with Google</div>
+                              <!--<<div class="g-signin2" data-width="300" data-height="200" data-longtitle="true">Sign in with Google</div>-->
 
                         </form>
                     </div>
@@ -38,24 +38,8 @@
 
 
 <script>
-/*function onSuccess(googleUser) {
-          console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-        };
-        function onFailure(error) {
-          console.log(error);
-        };
-        function renderButton() {
-          gapi.signin2.render('my-signin2', {
-            'scope': 'profile email',
-            'width': 240,
-            'height': 50,
-            'longtitle': true,
-            'theme': 'dark',
-            'onsuccess': onSuccess,
-            'onfailure': onFailure
-          });
-        };*/
-import firebase from 'firebase';
+
+import firebase from 'firebase/app'
 export default {
     name: 'login',
     data: function() {

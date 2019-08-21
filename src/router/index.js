@@ -6,7 +6,7 @@ import viewemployee from '@/components/viewemployee'
 import editEmployee from '@/components/editEmployee'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
-import firebase from 'firebase';
+import firebase from 'firebase/app'
 
 
 Vue.use(Router);
