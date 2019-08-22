@@ -58,7 +58,8 @@ export default {
                 name: this.name,
                 dept: this.dept,
                 position: this.position
-            })
+            }
+            )
             .then(docRef => this.$router.push('/'))
             .catch(error => console.log(err))
         }

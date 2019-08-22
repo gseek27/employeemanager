@@ -12,13 +12,15 @@
 <hr>
 <p class="error" v-if="error">{{ error }}</p>
 <div class="posts-container">
+  <!--
 <div class="post"
   v-for="(post, index) in posts"
   v-bind:item="post"
   v-bind:index="index"
   v-bind:key="post._id"
-  v-on:dblclick="deletePost(post._id)"
+  v-on:dblclick-bind:key="employee.id"ck="deletePost(post._id)"
   >
+   -->
   {{ `${post.createdAt.getDate()}/${post.createdAt.getMonth()}/${post.createdAt.getFullYear()}` }}
   <p class="text">{{ post.text }}</p>
   </div>
@@ -29,7 +31,7 @@
 <script>
 import PostService from '../PostService';
 export default {
-  name: 'new post',
+  name: 'PostComponent',
   data() {
     return {
       posts: [],
@@ -48,7 +50,7 @@ export default {
         createPost () {
             db.collection('PostComponent').add({
                 PostComponent_id: this.PostComponent_id,
-                trxt: this.text
+                text: this.text
             })
             .then(docRef => this.$router.push('/'))
             .catch(error => console.log(err))

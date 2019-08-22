@@ -1,9 +1,9 @@
 <template>
 <nav>
-    <div class="nav-wrapper red">
+    <div class="nav-wrapper teal">
 <div class="container">
     <router-link to="/" class="brand-logo">
-    It's Lit</router-link>
+    It's Lit! 🔥</router-link>
     <ul class="right">
         <li v-if="isLoggedIn">
             <span class="email black-text">

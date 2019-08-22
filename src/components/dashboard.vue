@@ -1,29 +1,43 @@
 <template>
+
+
  <div class="container"> 
   <h1>Latest Posts</h1>
+  
+  <form @submit.prevent="createPost">
   <div class="create-post">
     <label for="create-post">Say Something...</label>
-
+    
     <input type="text" id="create-post" v-model="text" placeholder="Create a post">
-    <button v-on:click="createPost">Post</button>
+    <button type="submit" v-on:click="createPost">Post</button>
   </div>
+  </form>
 
- <!--create post here -->
+ <!--create post here
+ v-on:click="deletePost(Post.id)"  -->
 <hr>
-<p class="error" v-if="error">{{ error }}</p>
-<div class="posts-container">
+
+
+            <div v-for="Post in posts.slice().reverse()" v-bind:key="Post.id" class="collection-item">
+              {{Post.text}}         
+
+            </div>
+
+
+<!--
+
+
 <div class="post"
   v-for="(post, index) in posts"
   v-bind:item="post"
-  v-bind:index="index"
   v-bind:key="post._id"
-  v-on:dblclick="deletePost(post._id)"
   >
-  {{ `${post.createdAt.getDate()}/${post.createdAt.getMonth()}/${post.createdAt.getFullYear()}` }}
-  <p class="text">{{ post.text }}</p>
+
+   v-on:dblclick="deletePost(post._id)"
+     v-bind:index="index"
+   -->
   </div>
-  </div>
-  </div>
+ 
 </template>
 
 <script>
@@ -33,64 +47,37 @@ import db from './firebaseInit'
 /*
 import PostService from '../PostService';*/
 export default {
-  name: 'PostComponent',
+  name: 'dashboard',
   data() {
     return {
-      posts: [],
-      error: '',
-      text: ''
+      text: null,
+      posts: []
     }
   },
-  async created () {
-db.collection('posts').orderBy('posttext').get().then(querySnapshot => {
+  methods: {
+        createPost () {
+            db.collection('posts').add({
+                text: this.text
+
+            })
+            .then(docRef => this.$router.push('/'))
+            .catch(error => console.log(error))
+        }},
+
+  created () {
+db.collection('posts').get().then(querySnapshot => {
     querySnapshot.forEach(doc => {
         console.log(doc.data());
         const data = {
             'id':  doc.id,
-            'posttext': doc.data().posttext,
+            'text': doc.data().text
         }
         this.posts.push(data)
     })
   })
- }     
+ }   
 }
-
-
-/*
-import PostService from '../PostService';
-export default {
-  name: 'PostComponent',
-  data() {
-    return {
-      posts: [],
-      error: '',
-      text: ''
-    }
-  },
-  async created() {
-    try {
-      this.posts = await PostService.getPosts();
-    } catch(err) {
-      this.error = err.message;
-    }
-  },
-  methods:{
-    async createPost() {
-      await PostService.insertPost(this.text);
-      this.posts = await PostService.getPosts();
-    },
-    async deletePost(id) {
-      await PostService.deletePost(id);
-      this.posts = await PostService.getPosts();
-    }
-  }
-};
-*/
-
 </script>
-
-
-
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

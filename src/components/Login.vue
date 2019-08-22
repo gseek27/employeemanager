@@ -5,7 +5,7 @@
                 
                 <div class="col s12 m8 offset-m2">
             
-                    <div class="login card-panel red white-text center">
+                    <div class="login card-panel teal white-text center">
             
                         <h3>Login</h3>
                         <form>
