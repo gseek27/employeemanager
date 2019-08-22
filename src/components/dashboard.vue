@@ -9,11 +9,16 @@
     <label for="create-post">Say Something...</label>
     
     <input type="text" id="create-post" v-model="text" placeholder="Create a post">
-    <button type="submit" v-on:click="createPost">Post</button>
+    <button type="submit" >Post</button>
   </div>
   </form>
 
- <!--create post here
+
+
+ <!--
+     v-on:click="createPost"
+
+     create post here
  v-on:click="deletePost(Post.id)"  -->
 <hr>
 
@@ -58,7 +63,6 @@ export default {
         createPost () {
             db.collection('posts').add({
                 text: this.text
-
             })
             .then(docRef => this.$router.push('/'))
             .catch(error => console.log(error))
