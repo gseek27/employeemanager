@@ -69,7 +69,7 @@ export default {
         }},
 
   created () {
-db.collection('posts').get().then(querySnapshot => {
+db.collection('posts').orderBy('text').get().then(querySnapshot => {
     querySnapshot.forEach(doc => {
         console.log(doc.data());
         const data = {
