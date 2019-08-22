@@ -28,7 +28,15 @@
                         </form>
                         
                     </div>
-                    <div id="my-signin2" @click="socialLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>
+                    <div id="my-signin2" @click="googleLogin"><img class="googlelogo" alt="google logo" src="../assets/googlebtn4.png"></div>
+                   <!--< <div id="my-signin2" @click="phoneLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>
+                    <div id="my-signin2" @click="facebookLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>-->
+                    
+                    <div id="my-signin2" v-on:click="twitterLogin"><img class="twitterlogo" alt="google logo" src="../assets/twitterbtn.png"></div>
+                    <!--<div id="my-signin2" @click="githubLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>
+                    <div id="my-signin2" @click="yahooLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>
+                    <div id="my-signin2" @click="msoftLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>-->
+
                 </div>
             </div>
         </div>
@@ -43,6 +51,9 @@ export default {
     name: 'login',
     data: function() {
         return {
+            displayname: '',
+            userCredential: '',
+            name: '',
             email: '',
             password: ''
         };
@@ -62,7 +73,7 @@ export default {
             );
 e.preventDefault();
         },
-        socialLogin() {
+        googleLogin() {
             const provider = new firebase.auth.GoogleAuthProvider();
 
             firebase.auth().signInWithRedirect(provider).then((result) => {
@@ -72,6 +83,17 @@ e.preventDefault();
             });
 
         },
+        twitterLogin() {
+            var provider = new firebase.auth.TwitterAuthProvider();
+
+            firebase.auth().signInWithRedirect(provider).then((result) => {
+                this.$router.go({path: this.$router.path});
+            }).catch((err) => {
+                alert('Oops. ' + err.message)
+            });
+
+        }
+        ,
         mounted() {
     gapi.signin2.render('my-signin2', { // this is the button "id"
       onsuccess: this.onSignIn, // note, no "()" here
@@ -89,11 +111,17 @@ e.preventDefault();
 </script>
 
 <style scoped>
-img {
+.googlelogo {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 65%;
+  width: 55%;
+}
+.twitterlogo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 54%;
 }
 
 </style>

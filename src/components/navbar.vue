@@ -8,6 +8,8 @@
         <li v-if="isLoggedIn">
             <span class="email black-text">
                 {{currentUser}}
+                {{currentName}}
+                {{currentId}}
             </span>
         </li>
 
@@ -52,6 +54,8 @@ export default {
         if(firebase.auth().currentUser) {
 this.isLoggedIn = true;
 this.currentUser= firebase.auth().currentUser.email;
+this.currentName= firebase.auth().currentUser.displayName;
+this.currentId= firebase.auth().userCredential.additionalUserInfo.profile;
 
         }
     },
