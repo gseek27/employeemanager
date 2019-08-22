@@ -27,39 +27,9 @@
 </template>
 
 <script>
-
-import db from './firebaseInit'
-
-/*
-import PostService from '../PostService';*/
-export default {
-  name: 'PostComponent',
-  data() {
-    return {
-      posts: [],
-      error: '',
-      text: ''
-    }
-  },
-  async created () {
-db.collection('posts').orderBy('posttext').get().then(querySnapshot => {
-    querySnapshot.forEach(doc => {
-        console.log(doc.data());
-        const data = {
-            'id':  doc.id,
-            'posttext': doc.data().posttext,
-        }
-        this.posts.push(data)
-    })
-  })
- }     
-}
-
-
-/*
 import PostService from '../PostService';
 export default {
-  name: 'PostComponent',
+  name: 'new post',
   data() {
     return {
       posts: [],
@@ -74,24 +44,20 @@ export default {
       this.error = err.message;
     }
   },
-  methods:{
-    async createPost() {
-      await PostService.insertPost(this.text);
-      this.posts = await PostService.getPosts();
-    },
-    async deletePost(id) {
-      await PostService.deletePost(id);
-      this.posts = await PostService.getPosts();
+  methods: {
+        createPost () {
+            db.collection('PostComponent').add({
+                PostComponent_id: this.PostComponent_id,
+                trxt: this.text
+            })
+            .then(docRef => this.$router.push('/'))
+            .catch(error => console.log(err))
+        }
     }
-  }
+    
 };
-*/
 
 </script>
-
-
-
-
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

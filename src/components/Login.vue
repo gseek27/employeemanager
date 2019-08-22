@@ -5,7 +5,7 @@
                 
                 <div class="col s12 m8 offset-m2">
             
-                    <div class="login card-panel green white-text center">
+                    <div class="login card-panel red white-text center">
             
                         <h3>Login</h3>
                         <form>
@@ -52,10 +52,11 @@ export default {
     data: function() {
         return {
             displayname: '',
-            userCredential: '',
+            username: '',
             name: '',
             email: '',
-            password: ''
+            password: '',
+            profile: ''
         };
     },
     methods: {
@@ -84,6 +85,20 @@ e.preventDefault();
 
         },
         twitterLogin() {
+            firebase.auth().signInWithRedirect(new firebase.auth.TwitterAuthProvider())
+  .then(function(userCredential) {
+    // All additional user info is available here.
+    
+    console.log(userCredential.additionalUserInfo.profile);
+    alert(userCredential.additionalUserInfo.profile);
+    this.$router.go({path: this.$router.path});
+  })
+  .catch(function(error) {
+    // Error occurred.
+  });
+
+
+            /*
             var provider = new firebase.auth.TwitterAuthProvider();
 
             firebase.auth().signInWithRedirect(provider).then((result) => {
@@ -91,9 +106,20 @@ e.preventDefault();
             }).catch((err) => {
                 alert('Oops. ' + err.message)
             });
+            */
 
-        }
-        ,
+            /*
+            firebase.auth().signInWithPopup(new firebase.auth.TwitterAuthProvider())
+  .then(function(userCredential) {
+    // All additional user info is available here.
+    console.log(userCredential.additionalUserInfo.profile);
+  })
+  .catch(function(error) {
+    // Error occurred.
+  });
+  */
+
+        },
         mounted() {
     gapi.signin2.render('my-signin2', { // this is the button "id"
       onsuccess: this.onSignIn, // note, no "()" here

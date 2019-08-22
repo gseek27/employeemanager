@@ -4,6 +4,7 @@ import dashboard from '@/components/dashboard'
 import newemployee from '@/components/newemployee'
 import viewemployee from '@/components/viewemployee'
 import editEmployee from '@/components/editEmployee'
+import employeeList from '@/components/employeeList'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import firebase from 'firebase/app'
@@ -34,6 +35,15 @@ let router = new Router({
     component: Register,
     meta: {
       requiresGuest: true
+    }
+
+
+    },
+    {path: '/employeelist',
+    name: 'employeelist',
+    component: employeeList,
+    meta: {
+      requiresAuth: true
     }
 
 
