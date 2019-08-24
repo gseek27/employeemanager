@@ -9,8 +9,14 @@
             <span class="email black-text">
                 {{currentUser}}
                 {{currentName}}
-                {{currentId}}
+                    {{currentId}}
             </span>
+            <div
+            :key="handle.id" 
+            {{ handle.screen_name }}
+            >
+
+                </div>
         </li>
         <li v-if="isLoggedIn">
             <router-link to="/employeelist">
@@ -43,17 +49,22 @@
 </nav>
 </template>
 
+
+
 <script>
 import firebase from 'firebase/app'
+import { handle } from './Login'
 import 'firebase/auth'
 export default {
     name: 'navbar',
+    
     data () {
         return {
             isLoggedIn: false,
             currentUser: false,
             currentName: false,
             currentId: ''
+            //currentUid: false,
         }
     },
     created() {
@@ -61,18 +72,47 @@ export default {
 this.isLoggedIn = true;
 this.currentUser= firebase.auth().currentUser.email;
 this.currentName= firebase.auth().currentUser.displayName;
-//this.currentId= firebase.auth().currentUser.providerData;
-
-        }
-    },
+this.currentUid= firebase.auth().currentUser.uid;
+this.currentId = { $handle };
+        };
+        this.fetchPosts();
+    }
+    ,
+    
     methods: {
+        ...mapActions(["fetchPosts"]),
         logout: function () {
             firebase.auth().signOut().then(() => {
                this.$router.go({path: this.$router.path});
             })
         }
-    }
+    },
+    computed: mapGetters(["allPosts"])
+
 }
+        
+        /*
+        ,
+        twitterscreenname: function () {
+
+        var request = new XMLHttpRequest();
+request.open('GET', 'https://api.twitter.com/1.1/users/show.json?user_id={`uid`}', true);
+request.onload = function() {
+  // Begin accessing JSON data here
+  var data = JSON.parse(this.response);
+  if (request.status >= 200 && request.status < 400) {
+    console.log(data.screen_name);
+    console.log(firebase.auth().currentUser.uid);
+    
+  };
+}
+
+}
+
+        }
+        */
+    
+
 </script>
 
 <style scoped>

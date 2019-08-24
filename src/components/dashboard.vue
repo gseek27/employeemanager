@@ -19,11 +19,14 @@
      v-on:click="createPost"
 
      create post here
- v-on:click="deletePost(Post.id)"  -->
+ v-on:click="deletePost(Post.id)"  
+ 
+ .slice().reverse()
+ -->
 <hr>
 
 
-            <div v-for="Post in posts.slice().reverse()" v-bind:key="Post.id" class="collection-item">
+            <div v-for="Post in posts" v-bind:key="Post.id" class="collection-item">
               {{Post.text}}         
 
             </div>
@@ -49,6 +52,23 @@
 
 import db from './firebaseInit'
 
+
+/*
+
+if(posts.data[i].hasOwnProperty('timestamp')){
+let time = new Date(posts.data[i].timeAdded + "T00:00:00");
+let fTimestamp = new firebase.firestore.Timestamp.fromDate(time);
+post.createdAt = posts.data[i].timeAdded;
+
+console.log( time, fTimestamp, posts.data[i])
+
+}
+
+
+
+*/
+
+
 /*
 import PostService from '../PostService';*/
 export default {
@@ -69,14 +89,14 @@ export default {
         }},
 
   created () {
-db.collection('posts').orderBy('text').get().then(querySnapshot => {
+db.collection('posts').get().then(querySnapshot => {
     querySnapshot.forEach(doc => {
         console.log(doc.data());
         const data = {
             'id':  doc.id,
             'text': doc.data().text
         }
-        this.posts.push(data)
+        this.posts.unshift(data)
     })
   })
  }   
