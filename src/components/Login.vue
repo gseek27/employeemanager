@@ -28,11 +28,12 @@
                         </form>
                         
                     </div>
-                    <div id="my-signin2" @click="googleLogin"><img class="googlelogo" alt="google logo" src="../assets/googlebtn4.png"></div>
+                    <div id="my-signin2" @click="googleLogin"><img class="googlelogo" alt="google logo"></div>
                    <!--< <div id="my-signin2" @click="phoneLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>
-                    <div id="my-signin2" @click="facebookLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>-->
-                    
-                    <div id="my-signin2" v-on:click="twitterLogin"><img class="twitterlogo" alt="google logo" src="../assets/twitterbtn.png"></div>
+                    <div id="my-signin2" @click="facebookLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>  
+                     //src="../assets/googlebtn4.png -->
+                    <br>
+                    <div v-on:click="twitterLogin" v-bind:username="username" @click="$emit('send-screenname', username)"><img class="twitterlogo" alt="google logo" src="../assets/twitterbtn.png"></div>
                     <!--<div id="my-signin2" @click="githubLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>
                     <div id="my-signin2" @click="yahooLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>
                     <div id="my-signin2" @click="msoftLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>-->
@@ -45,21 +46,30 @@
 
 
 <script>
-
 import firebase from 'firebase/app'
+import axios from 'axios';
 export default {
-    name: 'login',
+    name: 'login'
+    ,
     data: function() {
         return {
             displayname: '',
-            username: '',
+            username: "username",
             name: '',
             email: '',
             password: '',
             profile: ''
         };
     },
-    methods: {
+   
+        created() {
+        axios.get('https://api.twitter.com/1.1/users/show.json?user_id={dGcpjzT9XTZWdYw9EiciGwH0CiB3}')
+        .then(res => this.username = res.data)
+        .catch(err => console.log(err));
+        }
+    ,
+     methods: 
+    {
         login: function(e) {
             firebase
             .auth()
@@ -72,7 +82,7 @@ export default {
                 alert(err.message);
             }
             );
-e.preventDefault();
+            e.preventDefault();
         },
         googleLogin() {
             const provider = new firebase.auth.GoogleAuthProvider();
@@ -85,12 +95,18 @@ e.preventDefault();
 
         },
         twitterLogin() {
-            firebase.auth().signInWithRedirect(new firebase.auth.TwitterAuthProvider())
+            firebase.auth().signInWithPopup(new firebase.auth.TwitterAuthProvider())
   .then(function(userCredential) {
     // All additional user info is available here.
+
+    //console.log(username);
+
     
-    console.log(userCredential.additionalUserInfo.profile);
-    alert(userCredential.additionalUserInfo.profile);
+    console.log(userCredential.additionalUserInfo.profile.screen_name);
+    console.log(userCredential.additionalUserInfo.profile.screen_name);
+    const username = userCredential.additionalUserInfo.profile.screen_name;
+    console.log(username);
+    //console.log(this.username);
     this.$router.go({path: this.$router.path});
   })
   .catch(function(error) {
@@ -118,22 +134,18 @@ e.preventDefault();
     // Error occurred.
   });
   */
-
-        },
+        }},
+        
         mounted() {
     gapi.signin2.render('my-signin2', { // this is the button "id"
       onsuccess: this.onSignIn, // note, no "()" here
   scope: 'email',
-  width: 150,
+  width: 365,
   height: 50,
   longtitle: true,
-  theme: 'light'
-    })
+  theme: 'light'    })
   }
-    }
 }
-
-    
 </script>
 
 <style scoped>
@@ -141,7 +153,7 @@ e.preventDefault();
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 55%;
+  width: 100%;
 }
 .twitterlogo {
   display: block;
@@ -149,5 +161,4 @@ e.preventDefault();
   margin-right: auto;
   width: 54%;
 }
-
 </style>

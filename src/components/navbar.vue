@@ -4,13 +4,18 @@
 <div class="container">
     <router-link to="/" class="brand-logo">
     It's Lit! 🔥</router-link>
+
+         <h3>
+      
+        </h3>
+        </div>
     <ul class="right">
         <li v-if="isLoggedIn">
-            <span class="email black-text">
+            <span class="email black-text"> 
                 {{currentUser}}
                 {{currentName}}
-                {{currentId}}
-            </span>
+               {{currentId}} 
+             </span>       
         </li>
         <li v-if="isLoggedIn">
             <router-link to="/employeelist">
@@ -44,10 +49,17 @@
 </template>
 
 <script>
+import Login from './Login'
+import axios from 'axios';
 import firebase from 'firebase/app'
 import 'firebase/auth'
 export default {
     name: 'navbar',
+    props: ["info"],
+    components: {
+        Login
+    },
+ 
     data () {
         return {
             isLoggedIn: false,
@@ -57,15 +69,24 @@ export default {
         }
     },
     created() {
+                
         if(firebase.auth().currentUser) {
 this.isLoggedIn = true;
 this.currentUser= firebase.auth().currentUser.email;
 this.currentName= firebase.auth().currentUser.displayName;
-//this.currentId= firebase.auth().currentUser.providerData;
-
+//this.currentId = username;
+//console.log(username);}
         }
+
+axios.get('https://api.twitter.com/1.1/users/show.json?user_id={dGcpjzT9XTZWdYw9EiciGwH0CiB3}')
+        .then(res => this.currentId = res.data)
+        .catch(err => console.log(err));
+        console.log(this.currentId + 'YES');
+        
     },
+
     methods: {
+
         logout: function () {
             firebase.auth().signOut().then(() => {
                this.$router.go({path: this.$router.path});
