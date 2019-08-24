@@ -8,19 +8,7 @@ import employeeList from '@/components/employeeList'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import firebase from 'firebase/app'
- 
 
-/*
-//itslit
-import Vuex from 'vuex';
-import posts from '../components/store/modules/posts'
-
-//Load Vuex
-Vue.use(Vuex);
-//itslit
-
-
-*/
 
 Vue.use(Router);
 
@@ -126,20 +114,4 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-
 export default router;
-
-
-/*
-//create store - 
-export default new Vuex.Store({
-  modules: {
-  
-      posts
-  }
-  
-  
-  }
-  );
-  //itslit
-  */
