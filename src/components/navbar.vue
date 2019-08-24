@@ -43,8 +43,7 @@
             </button>
         </li>
     </ul>
-</div>
-    </div>
+</div>       
 </nav>
 </template>
 
@@ -69,7 +68,12 @@ export default {
         }
     },
     created() {
-                
+        
+    axios.get('https://api.twitter.com/1.1/users/show.json?user_id={dGcpjzT9XTZWdYw9EiciGwH0CiB3}')
+        .then(res => this.currentId = res.data)
+        .catch(err => console.log(err));
+        console.log(this.currentId + 'YES');
+
         if(firebase.auth().currentUser) {
 this.isLoggedIn = true;
 this.currentUser= firebase.auth().currentUser.email;
@@ -78,10 +82,7 @@ this.currentName= firebase.auth().currentUser.displayName;
 //console.log(username);}
         }
 
-axios.get('https://api.twitter.com/1.1/users/show.json?user_id={dGcpjzT9XTZWdYw9EiciGwH0CiB3}')
-        .then(res => this.currentId = res.data)
-        .catch(err => console.log(err));
-        console.log(this.currentId + 'YES');
+
         
     },
 
