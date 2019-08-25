@@ -102,7 +102,7 @@ export default {
 
         },
         twitterLogin() {
-            firebase.auth().signInWithPopup(new firebase.auth.TwitterAuthProvider())
+            firebase.auth().signInWithRedirect(new firebase.auth.TwitterAuthProvider())
   .then(function(userCredential) {
     // All additional user info is available here.
 

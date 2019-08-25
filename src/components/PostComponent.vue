@@ -1,17 +1,17 @@
 <template>
  <div class="container"> 
   <h1>Latest Posts</h1>
-  <div class="create-post">
+    <div class="create-post">
     <label for="create-post">Say Something...</label>
 
     <input type="text" id="create-post" v-model="text" placeholder="Create a post">
     <button v-on:click="createPost">Post</button>
-  </div>
+    </div>
 
  <!--create post here -->
 <hr>
 <p class="error" v-if="error">{{ error }}</p>
-<div class="posts-container">
+    <div class="posts-container">
   <!--
 <div class="post"
   v-for="(post, index) in posts"
@@ -23,9 +23,8 @@
    -->
   {{ `${post.createdAt.getDate()}/${post.createdAt.getMonth()}/${post.createdAt.getFullYear()}` }}
   <p class="text">{{ post.text }}</p>
-  </div>
-  </div>
-  </div>
+    </div>
+</div>
 </template>
 
 <script>

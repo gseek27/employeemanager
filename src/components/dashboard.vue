@@ -24,7 +24,7 @@
 
 
             <div v-for="Post in posts.slice().reverse()" v-bind:key="Post.id" class="collection-item">
-              {{Post.text}}         
+              {{Post.text}} {{Post.id}} {{Post.time}}
 
             </div>
 
@@ -48,6 +48,7 @@
 <script>
 
 import db from './firebaseInit'
+import firebase from 'firebase/app'
 
 /*
 import PostService from '../PostService';*/
@@ -56,30 +57,43 @@ export default {
   data() {
     return {
       text: null,
-      posts: []
+      id: null,
+      posts: [],
+      time: null
     }
   },
+  computed: {
+    timestamp() {
+      '1566716400'
+      }
+    },
   methods: {
         createPost () {
             db.collection('posts').add({
-                text: this.text
+              
+                text: this.text,
+                id: this.id,
+                time: Date.now()
             })
             .then(docRef => this.$router.push('/'))
-            .catch(error => console.log(error))
-        }},
+            .catch(error => console.log(error));
 
+        }
+        },
   created () {
-db.collection('posts').orderBy('text').get().then(querySnapshot => {
+db.collection('posts').orderBy("time", "asc").get().then(querySnapshot => {
     querySnapshot.forEach(doc => {
-        console.log(doc.data());
+        
         const data = {
             'id':  doc.id,
-            'text': doc.data().text
+            'text': doc.data().text,
+            'time': doc.data().time //keep to show timestamp
         }
-        this.posts.push(data)
+        this.posts.push(data);
+        console.log(doc.data());
     })
   })
- }   
+ }
 }
 </script>
 
