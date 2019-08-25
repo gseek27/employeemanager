@@ -33,7 +33,7 @@
                     <div id="my-signin2" @click="facebookLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>  
                      //src="../assets/googlebtn4.png -->
                     <br>
-                    <div v-on:click="twitterLogin" v-bind:username="username" @click="$emit('send-screenname', username)"><img class="twitterlogo" alt="google logo" src="../assets/twitterbtn.png"></div>
+                    <div v-on:click="twitterLogin" @click="$emit('send-screenname', username)"><img class="twitterlogo" alt="google logo" src="../assets/twitterbtn.png"></div>
                     <!--<div id="my-signin2" @click="githubLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>
                     <div id="my-signin2" @click="yahooLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>
                     <div id="my-signin2" @click="msoftLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>-->
@@ -49,25 +49,32 @@
 import firebase from 'firebase/app'
 import axios from 'axios';
 export default {
-    name: 'login'
-    ,
-    data: function() {
+    name: 'login',
+    components: {
+        
+    },
+    data() {
         return {
+            username: [
+            {
             displayname: '',
-            username: "username",
+            username: 'moretesting',
             name: '',
             email: '',
             password: '',
             profile: ''
-        };
+            }
+        ]
+    }
+},
+    created() {
+         /*axios.get('https://api.twitter.com/1.1/users/show.json?user_id={dGcpjzT9XTZWdYw9EiciGwH0CiB3}')
+        .then(res => this.username = res.data)
+        .catch(err => console.log(err));*/
+        console.log(username + 'YES')
     },
    
-        created() {
-        axios.get('https://api.twitter.com/1.1/users/show.json?user_id={dGcpjzT9XTZWdYw9EiciGwH0CiB3}')
-        .then(res => this.username = res.data)
-        .catch(err => console.log(err));
-        }
-    ,
+    
      methods: 
     {
         login: function(e) {
@@ -104,7 +111,7 @@ export default {
     
     console.log(userCredential.additionalUserInfo.profile.screen_name);
     console.log(userCredential.additionalUserInfo.profile.screen_name);
-    const username = userCredential.additionalUserInfo.profile.screen_name;
+    const test = userCredential.additionalUserInfo.profile.screen_name;
     console.log(username);
     //console.log(this.username);
     this.$router.go({path: this.$router.path});
@@ -143,7 +150,12 @@ export default {
   width: 365,
   height: 50,
   longtitle: true,
-  theme: 'light'    })
+  theme: 'light'    });
+
+        
+  
+
+       
   }
 }
 </script>

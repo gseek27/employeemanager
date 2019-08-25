@@ -4,17 +4,19 @@
 <div class="container">
     <router-link to="/" class="brand-logo">
     It's Lit! 🔥</router-link>
-
+    <div v-bind:value="username">
+            <h4>{{username}}</h4>
+         </div>
          <h3>
       
         </h3>
-        </div>
+        </div >
     <ul class="right">
         <li v-if="isLoggedIn">
             <span class="email black-text"> 
-                {{currentUser}}
-                {{currentName}}
-               {{currentId}} 
+                {{currentEmail}}
+                {{currentDisplay}}
+               {{currentHandle}}
              </span>       
         </li>
         <li v-if="isLoggedIn">
@@ -51,34 +53,35 @@
 import Login from './Login'
 import axios from 'axios';
 import firebase from 'firebase/app'
+import username from './Login'
 import 'firebase/auth'
 export default {
     name: 'navbar',
-    props: ["info"],
+    props: ["username"],
     components: {
-        Login
+        
     },
  
     data () {
         return {
             isLoggedIn: false,
-            currentUser: false,
-            currentName: false,
-            currentId: ''
+            currentEmail: false,
+            currentDisplay: false,
+            currentHandle: ''
         }
     },
     created() {
-        
+            /*
     axios.get('https://api.twitter.com/1.1/users/show.json?user_id={dGcpjzT9XTZWdYw9EiciGwH0CiB3}')
         .then(res => this.currentId = res.data)
         .catch(err => console.log(err));
-        console.log(this.currentId + 'YES');
+        console.log(this.currentHandle + 'YES'); */
 
         if(firebase.auth().currentUser) {
 this.isLoggedIn = true;
-this.currentUser= firebase.auth().currentUser.email;
-this.currentName= firebase.auth().currentUser.displayName;
-//this.currentId = username;
+this.currentEmail= firebase.auth().currentUser.email;
+this.currentDisplay= firebase.auth().currentUser.displayName;
+//this.currentHandle = username;
 //console.log(username);}
         }
 
