@@ -2,7 +2,7 @@
   <div class="container">
     <h1>Latest Posts</h1>
 
-    <form @submit="createPost" key="componentKey">
+    <form  key="componentKey"> <!--@submit="createPost"-->
       <div class="create-post">
         <label for="create-post">Wsup?</label>
 
