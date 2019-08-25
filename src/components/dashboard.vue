@@ -2,12 +2,12 @@
   <div class="container">
     <h1>Latest Posts</h1>
 
-    <form @submit.prevent="createPost">
+    <form @submit="createPost" key="componentKey">
       <div class="create-post">
-        <label for="create-post">Say Something...</label>
+        <label for="create-post">Wsup?</label>
 
-        <input type="text" id="create-post" v-model="text" placeholder="Create a post" />
-        <button type="submit">Post</button>
+        <input type="text" id="create-post" v-model="text" placeholder="Type your message here..." />
+        <button  v-on:click="createPost" type="submit">Post</button>
       </div>
     </form>
 
@@ -51,7 +51,8 @@ export default {
       text: null,
       id: null,
       posts: [],
-      time: null
+      time: null,
+      componentKey: 0
     };
   },
   computed: {
@@ -60,14 +61,17 @@ export default {
     }
   },
   methods: {
+     forceRerender() {
+      this.componentKey += 1;
+     },
     createPost() {
       db.collection("posts")
         .add({
           text: this.text,
-          id: this.id,
-          time: Date.now()
+          id: this.id
+         ,time: Date.now()
         })
-        .then(docRef => this.$router.push("/"))
+        .then(docRef => this.$router.push("/")) //docRef => this.$router.push("/")
         .catch(error => console.log(error));
     }
   },
@@ -80,7 +84,7 @@ export default {
           const data = {
             id: doc.id,
             text: doc.data().text,
-            time: doc.data().time //keep to show timestamp
+            time: doc.data(Date.now()).time //keep to show timestamp doc.data().time
           };
           this.posts.push(data);
           console.log(doc.data());
