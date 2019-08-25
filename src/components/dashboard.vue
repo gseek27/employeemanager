@@ -24,7 +24,7 @@
 
 
             <div v-for="Post in posts.slice().reverse()" v-bind:key="Post.id" class="collection-item">
-              {{Post.text}} {{Post.id}} {{Post.time}}
+              {{Post.text}} {{Post.time}}
 
             </div>
 
@@ -49,7 +49,6 @@
 
 import db from './firebaseInit'
 import firebase from 'firebase/app'
-
 /*
 import PostService from '../PostService';*/
 export default {
