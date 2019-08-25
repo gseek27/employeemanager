@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    {{username}}
-    <navbar v-bind:username="username"  />
+    <navbar v-bind:username="username" />
     <div class="container">
     <router-view/>
     </div>

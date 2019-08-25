@@ -1,23 +1,14 @@
 <template>
 <nav>
     <div class="nav-wrapper teal">
-<div class="container">
-    <router-link to="/" class="brand-logo">
-    It's Lit! 🔥</router-link>
+        <div class="container">
+    <router-link to="/" class="brand-logo">It's Lit! 🔥</router-link>
     <div v-bind:value="username">
-            <h4>{{username}}</h4>
+            <!--<h4>{{username}}</h4> //testing props in vue -->
          </div>
-         <h3>
-      
-        </h3>
-        </div >
     <ul class="right">
         <li v-if="isLoggedIn">
-            <span class="email black-text"> 
-                {{currentEmail}}
-                {{currentDisplay}}
-               {{currentHandle}}
-             </span>       
+            <span class="email black-text">{{currentEmail}} {{currentDisplay}}<!--{{currentHandle}}--></span>       
         </li>
         <li v-if="isLoggedIn">
             <router-link to="/employeelist">
@@ -45,6 +36,7 @@
             </button>
         </li>
     </ul>
+    </div >
 </div>       
 </nav>
 </template>
@@ -101,5 +93,5 @@ this.currentDisplay= firebase.auth().currentUser.displayName;
 </script>
 
 <style scoped>
-.email {padding-right: 10px;}
+.email {padding-right: 0px;}
 </style>
