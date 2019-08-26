@@ -57,24 +57,49 @@ export default {
       id: null,
       posts: [],
       time: null,
-      componentKey: 0
+      componentKey: 0,
+      timestamp: null,
     };
   },
   computed: {
-    timestamp() {
-      "1566716400";
-    }
+    //timestamp() {
+   //   "1566716400";
+   // }
   },
   methods: {
     forceRerender() {
       this.componentKey += 1;
     },
     createPost() {
+
+      var currentDate = new Date();
+
+            console.log(currentDate);
+
+
+
+            
+            var offset = new Date().getTimezoneOffset();
+            console.log(offset);
+
+            var newtime = currentDate - offset
+            //var currentDateWithFormat = new Date()*1000
+
+            var currentDateWithFormat = new Date().toJSON()
+            //var currentDateWithFormat = currentDateWithFormat
+            var currentDateWithFormat = currentDateWithFormat.toString()
+
+           var date = new Date(currentDateWithFormat).toLocaleString()
+           //var d = new Date("2019-03-15T22:32:04.9143842Z")
+           //var newtime = date.toLocaleString()
+           //var date = date.toJSON().slice(0,10).replace(/-/g,'/')
+
       db.collection("posts")
         .add({
           text: this.text,
           id: this.id,
-          time: Date.now() //moment(Date.now()).format('MM/DD/YYYY hh:mm a')
+          time: date, //currentDateWithFormat //Date.now() //moment(Date.now())... //Date.now()).toJSON().slice(0,10).replace(/-/g,'/');
+          timestamp: Date.now()
         })
         .then(this.$router.push("")) //docRef => this.$router.push("/")  this.$router.go()
         .catch(error => console.log(error));
@@ -82,14 +107,15 @@ export default {
   },
   created() {
     db.collection("posts")
-      .orderBy("time", "asc")
+      .orderBy("timestamp", "asc")
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
           const data = {
             id: doc.id,
             text: doc.data().text,
-            time: doc.data(Date.now()).time //keep to show timestamp doc.data().time
+            time: doc.data(Date.now()).time, //keep to show timestamp doc.data().time,
+            timestamp: Date.now()
           };
           this.posts.push(data);
           console.log(doc.data());
