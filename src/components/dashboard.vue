@@ -45,7 +45,7 @@
 <script>
 import db from "./firebaseInit";
 import firebase from "firebase/app";
-import moment from 'moment'
+//import moment from 'moment'
 /*
 import PostService from '../PostService';*/
 export default {
@@ -73,7 +73,7 @@ export default {
         .add({
           text: this.text,
           id: this.id,
-          time: moment(Date.now()).format('MM/DD/YYYY hh:mm a')
+          time: Date.now() //moment(Date.now()).format('MM/DD/YYYY hh:mm a')
         })
         .then(this.$router.push("")) //docRef => this.$router.push("/")  this.$router.go()
         .catch(error => console.log(error));
