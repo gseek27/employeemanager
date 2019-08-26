@@ -20,10 +20,12 @@
               <!--<div id="my-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>-->
             </form>
           </div>
-          <div id="my-signin2" @click="googleLogin">
-            <img class="googlelogo" alt="google logo" />
+          <div  @click="googleLogin">
+            <img class="googlelogo" alt="google logo" src="../assets/googlebtn4.png" />
           </div>
-          <!--< <div id="my-signin2" @click="phoneLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>
+          <!-- id="my-signin2"
+            
+            <div id="my-signin2" @click="phoneLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>
                     <div id="my-signin2" @click="facebookLogin"><img class="logo" alt="google logo" src="../assets/googlebtn4.png"></div>  
           //src="../assets/googlebtn4.png-->
           <br />
@@ -140,14 +142,17 @@ export default {
   },
 
   mounted() {
+
+    
     gapi.signin2.render("my-signin2", {
       // this is the button "id"
       onsuccess: this.onSignIn, // note, no "()" here
       scope: "email",
-      width: 365,
+      width: 400,
       height: 50,
       longtitle: true,
-      theme: "light"
+      theme: "light",
+      redirect_uri: 'https://gseek27.github.io'
     });
   }
 };
@@ -158,7 +163,7 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
+  width: 60%;
 }
 .twitterlogo {
   display: block;
