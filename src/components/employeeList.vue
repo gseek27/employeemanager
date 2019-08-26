@@ -7,7 +7,7 @@
 
       <li v-for="employee in employees" v-bind:key="employee.id" class="collection-item">
         <div class="chip">{{employee.dept}}</div>
-        {{employee.name}}
+        {{employee.name}} - "{{employee.position}}"
         <router-link
           class="secondary-content"
           v-bind:to="{name: 'view-employee', params: {employee_id: employee.employee_id}}"
