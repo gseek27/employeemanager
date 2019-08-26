@@ -9,7 +9,7 @@
             <li class="collection-item">Bio: {{position}}</li>
         </ul>
         <router-link to="/" class="btn grey">Back</router-link>
-        <button @click="deleteEmployee" class="btn red">Delete</button>
+        <!--<button @click="deleteEmployee" class="btn red">Delete</button>-->
         <router-link v-bind:to="{name: 'edit-employee', params: {employee_id: employee_id}}" class="btn blue">Edit</router-link>
 
         

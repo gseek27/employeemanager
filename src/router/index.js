@@ -38,7 +38,7 @@ let router = new Router({
       }
     },
     {
-      path: "/employeelist",
+      path: "/profile",
       name: "employeelist",
       component: employeeList,
       meta: {

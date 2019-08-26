@@ -9,12 +9,12 @@
         <ul class="right">
           <li v-if="isLoggedIn">
             <span class="email black-text">
-              {{currentEmail}} {{currentDisplay}}
+             {{name}} {{currentEmail}} {{currentDisplay}}
               <!--{{currentHandle}}-->
             </span>
           </li>
           <li v-if="isLoggedIn">
-            <router-link to="/employeelist">Profile</router-link>
+            <router-link to="/profile">Profile</router-link>
           </li>
           <li v-if="isLoggedIn">
             <router-link to="/">Home</router-link>
