@@ -3,11 +3,11 @@
     <h3>Edit Profile</h3>
     <div class>
       <form @submit.prevent="updateEmployee" class="col s12">
-        <div class="row">
+       <!-- <div class="row">
           <div class="input-field col s12">
             <input disabled type="text" v-model="employee_id" required />
           </div>
-        </div>
+        </div>-->
         <div class="row">
           <div class="input-field col s12">
             <input type="text" v-model="name" required />

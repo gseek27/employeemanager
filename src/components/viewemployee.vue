@@ -5,17 +5,20 @@
                 <h4>{{name}}</h4>
             </li>
            <!-- <li class="collection-item">User ID #: {{employee_id}}</li>-->
-            <li class="collection-item">Industry: {{dept}}</li>
-            <li class="collection-item">Job Title: {{position}}</li>
+            <li class="collection-item">Location: {{dept}}</li>
+            <li class="collection-item">Bio: {{position}}</li>
         </ul>
         <router-link to="/" class="btn grey">Back</router-link>
         <button @click="deleteEmployee" class="btn red">Delete</button>
-         
+        <router-link v-bind:to="{name: 'edit-employee', params: {employee_id: employee_id}}" class="btn blue">Edit</router-link>
+
+        
+         <!--
          <div class="fixed-action-btn">
          <router-link v-bind:to="{name: 'edit-employee', params: {employee_id: employee_id}}" class="btn-floating btn-large red">
         <i class="fa fa-pencil"></i>
         </router-link>
-        </div>
+        </div>-->
 
    </div>
 </template>
