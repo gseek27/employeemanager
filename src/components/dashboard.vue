@@ -23,7 +23,7 @@
         class="collection-item"
         v-for="Post in posts.slice().reverse()"
         v-bind:key="Post.id"
-      >{{Post.text}} {{Post.time}}</div>
+      >{{Post.text}} - {{Post.time}}</div>
     </div>
     <!--
 
