@@ -2,7 +2,7 @@
   <div id="dashboard">
     <ul class="collection with-header">
       <li class="collection-header">
-        <h4>Users</h4>
+        <h4>Profile</h4>
       </li>
 
       <li v-for="employee in employees" v-bind:key="employee.id" class="collection-item">
@@ -17,11 +17,13 @@
       </li>
     </ul>
 
+<!--
     <div class="fixed-action-btn">
       <router-link to="/new" class="btn-floating btn-large red">
         <i class="fa fa-plus"></i>
       </router-link>
     </div>
+    -->
   </div>
 </template>
 

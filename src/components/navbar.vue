@@ -14,7 +14,7 @@
             </span>
           </li>
           <li v-if="isLoggedIn">
-            <router-link to="/employeelist">Users</router-link>
+            <router-link to="/employeelist">Profile</router-link>
           </li>
           <li v-if="isLoggedIn">
             <router-link to="/">Dashboard</router-link>

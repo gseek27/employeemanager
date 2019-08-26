@@ -1,13 +1,14 @@
 <template>
-  <div class="container">
+  <div class="container" :key="componentKey">
     <h1>Latest Posts</h1>
 
-    <form  key="componentKey"> <!--@submit="createPost"-->
+    <form>
+      <!--@submit="createPost"-->
       <div class="create-post">
         <label for="create-post">Wsup?</label>
 
         <input type="text" id="create-post" v-model="text" placeholder="Type your message here..." />
-        <button  v-on:click="createPost" type="submit">Post</button>
+        <button v-on:click="createPost" @submit="forceRerender" type="submit">Send</button>
       </div>
     </form>
 
@@ -15,15 +16,15 @@
      v-on:click="createPost"
 
      create post here
-    v-on:click="deletePost(Post.id)"-->
+    v-on:click="deletePost(Post.id)" :key="componentKey"-->
     <hr />
-
-    <div
-      v-for="Post in posts.slice().reverse()"
-      v-bind:key="Post.id"
-      class="collection-item"
-    >{{Post.text}} {{Post.time}}</div>
-
+    <div class="postlist" v-bind:key="componentKey">
+      <div
+        class="collection-item"
+        v-for="Post in posts.slice().reverse()"
+        v-bind:key="Post.id"
+      >{{Post.text}} {{Post.time}}</div>
+    </div>
     <!--
 
 
@@ -61,17 +62,17 @@ export default {
     }
   },
   methods: {
-     forceRerender() {
+    forceRerender() {
       this.componentKey += 1;
-     },
+    },
     createPost() {
       db.collection("posts")
         .add({
           text: this.text,
-          id: this.id
-         ,time: Date.now()
+          id: this.id,
+          time: Date.now()
         })
-        .then(docRef => this.$router.push("/")) //docRef => this.$router.push("/")
+        .then(this.$router.push("")) //docRef => this.$router.push("/")  this.$router.go()
         .catch(error => console.log(error));
     }
   },
@@ -84,10 +85,11 @@ export default {
           const data = {
             id: doc.id,
             text: doc.data().text,
-            time: doc.data(Date.now()).time //keep to show timestamp doc.data().time
+           // time: doc.data(Date.now()).time //keep to show timestamp doc.data().time
           };
           this.posts.push(data);
           console.log(doc.data());
+          console.log(doc.data(Date.now()).time)
         });
       });
   }

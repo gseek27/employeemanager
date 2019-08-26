@@ -4,7 +4,7 @@
             <li class="collection-header">
                 <h4>{{name}}</h4>
             </li>
-            <li class="collection-item">User ID #: {{employee_id}}</li>
+           <!-- <li class="collection-item">User ID #: {{employee_id}}</li>-->
             <li class="collection-item">Industry: {{dept}}</li>
             <li class="collection-item">Job Title: {{position}}</li>
         </ul>
