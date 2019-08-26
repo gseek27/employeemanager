@@ -45,6 +45,7 @@
 <script>
 import db from "./firebaseInit";
 import firebase from "firebase/app";
+//Vue.use(require('vue-moment'));
 //import moment from 'moment'
 /*
 import PostService from '../PostService';*/
