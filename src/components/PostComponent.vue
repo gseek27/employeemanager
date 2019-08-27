@@ -1,66 +1,57 @@
 <template>
- <div class="container"> 
-  <h1>Latest Posts</h1>
-    <div class="create-post">
-    <label for="create-post">Say Something...</label>
 
-    <input type="text" id="create-post" v-model="text" placeholder="Create a post">
-    <button v-on:click="createPost">Post</button>
-    </div>
+  <div class="postlist" :key="componentKey">
+   
+    <div
+      class="collection-item"
+      v-for="Post of posts"
+      v-bind:key="Post.id"
+    >
 
- <!--create post here -->
-<hr>
-<p class="error" v-if="error">{{ error }}</p>
-    <div class="posts-container">
-  <!--
-<div class="post"
-  v-for="(post, index) in posts"
-  v-bind:item="post"
-  v-bind:index="index"
-  v-bind:key="post._id"
-  v-on:dblclick-bind:key="employee.id"ck="deletePost(post._id)"
-  >
-   -->
-  {{ `${post.createdAt.getDate()}/${post.createdAt.getMonth()}/${post.createdAt.getFullYear()}` }}
-  <p class="text">{{ post.text }}</p>
+    {{Post.text}} - {{Post.time}}
+
     </div>
-</div>
+    
+  </div>
 </template>
 
 <script>
-import PostService from '../PostService';
+import db from "./firebaseInit";
+import firebase from "firebase/app";
 export default {
-  name: 'PostComponent',
+  name: "dashboard",
+  components: {},
   data() {
     return {
+      text: null,
+      id: null,
       posts: [],
-      error: '',
-      text: ''
-    }
+      time: null,
+      componentKey: 0,
+      timestamp: null
+    };
   },
-  async created() {
-    try {
-      this.posts = await PostService.getPosts();
-    } catch(err) {
-      this.error = err.message;
-    }
-  },
-  methods: {
-        createPost () {
-            db.collection('PostComponent').add({
-                PostComponent_id: this.PostComponent_id,
-                text: this.text
-            })
-            .then(docRef => this.$router.push('/'))
-            .catch(error => console.log(err))
-        }
-    }
-    
+  created() {  // shows and orders the list of posts. when they are "created, it takrs a "snapshot"...
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          const data = {
+            id: doc.id,
+            text: doc.data().text,
+            time: doc.data(Date.now()).time, //keep to show timestamp doc.data().time,
+            timestamp: Date.now()
+          };
+          this.posts.push(data);
+          console.log(doc.data());
+          console.log(doc.data(Date.now()).time);
+        });
+      });
+  }
 };
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 </style>
