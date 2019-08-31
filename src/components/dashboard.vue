@@ -37,7 +37,8 @@ export default {
       posts: [],
       time: null,
       componentKey: 0,
-      timestamp: null
+      timestamp: null,
+    //  postKey: 0
     };
   },
 
@@ -74,6 +75,7 @@ export default {
       db.collection("posts")
         .add({
           text: this.text, //NEEDED
+         // postKey: this.postKey,
           //id: data.doc.id, // db.collection('posts').doc().id, //good
           time: new Date(new Date().toJSON().toString()).toLocaleString(), // NEEDED. converts the post time into local time
           timestamp: Date.now(), //NEEDED
@@ -84,7 +86,7 @@ export default {
 
         console.log(db.collection('posts').doc().id +'firebase');
     }
-    
+    /*
     },
     created() {  // shows and orders the list of posts. when they are "created, it takes a "snapshot"...
     db.collection("posts")
@@ -94,9 +96,11 @@ export default {
         querySnapshot.forEach(doc => {
           const data = {
             id: doc.id, //good NEEDED
+            //componentKey: doc.componentKey,
             text: doc.data().text, //NEEDED
+         //   postKey:doc.data().postKey,
             time: doc.data(Date.now()).time, //NEEDED. keep this here to show timestamp on the posts: doc.data().time,
-            //timestamp: Date.now() //not needed? 
+            timestamp: Date.now() //not needed? 
           };
           this.posts.push(data);
           console.log(doc.data());
@@ -104,8 +108,8 @@ export default {
         });
       });
   }
-  
-  }
+ */ 
+  }}
 </script>
 
 
