@@ -1,15 +1,18 @@
 <template>
 
-  <div class="postlist" :key="componentKey">
+  <div>
    
     <div
-      class="collection-item"
-      v-for="Post of posts"
+      
+      v-for="Post in posts"
       v-bind:key="Post.id"
     >
+     
+     <button class="btn-floating btn-small red" :key="Post.id" @click="deletePost(Post)" ><i class="fa fa-times"></i></button>
+      &nbsp;
 
-    {{Post.text}} - {{Post.time}}
-
+     {{Post.text}} - {{Post.time}} ({{Post.id}})
+ <br><br>
     </div>
     
   </div>
@@ -20,17 +23,49 @@ import db from "./firebaseInit";
 import firebase from "firebase/app";
 export default {
   name: "dashboard",
-  components: {},
   data() {
     return {
-      text: null,
+     // text: null,
       id: null,
       posts: [],
-      time: null,
-      componentKey: 0,
-      timestamp: null
+     // time: null,
+     // componentKey: 0,
+     // timestamp: null
     };
   },
+  methods: {
+
+      deletePost(Post) {
+      if(confirm("Do you really want to delete?"))
+     console.log(Post.id)
+     //this.posts.splice(id, 1)
+      //this.reversedList.splice(id, 1);
+      this.$emit('del-post', Post.id)
+      //let docId = `${this.currentUser.uid}`
+
+     /* db.collection("posts").doc(Post.id).update({
+     posts: firebase.firestore.FieldValue.arrayRemove(Post)  */
+
+      db.collection("posts").where("text", "==", Post.text).get()
+     .then( querySnapshot => {
+       querySnapshot.forEach(doc => {
+         this.text = doc.ref.delete()
+         this.$router.push("/")
+       })
+     }
+     )
+      }
+   },
+   /*
+  .catch(function(error) {
+      console.error("Error removing document: ", error);
+  });
+  */
+
+      //posts.filter(post => post.id !== deleteId)
+    
+    
+  
   created() {  // shows and orders the list of posts. when they are "created, it takrs a "snapshot"...
     db.collection("posts")
       .orderBy("timestamp", "desc")
