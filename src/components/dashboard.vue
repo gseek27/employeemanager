@@ -13,8 +13,7 @@
     </form>
 
      <br>
-
-    <PostComponent :posts="posts" :key="componentKey" @del-post="deletePost" /> 
+    <PostComponent :timestamp="timestamp" :posts="posts" :key="componentKey" /> 
     <!-- props, post list update on render, emit function for deleting -->
   </div>
 </template>
@@ -44,7 +43,7 @@ export default {
 
   firebase: {
 
-    posts: db.collection("posts")
+   // posts: db.collection("posts")
 
   },
 
@@ -84,7 +83,7 @@ export default {
         .then(this.$router.push("/"))
         .catch(error => console.log(error));
 
-        console.log(db.collection('posts').doc().id +'firebase');
+       // console.log(db.collection('posts').doc().id +'firebase');
     }
     /*
     },

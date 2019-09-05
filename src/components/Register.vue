@@ -9,6 +9,12 @@
             
                         <h3>Register</h3>
                         <form>
+                            <br>
+                            <div class="input-field">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input type="text" id="screenname" v-model="screenname">
+                                <label for="screenname" >Screen Name</label>
+                            </div>
                             <div class="input-field">
                                 <i class="material-icons prefix">email</i>
                                 <input type="text" id="email" v-model="email">
@@ -31,21 +37,30 @@
 </template>
 
 <script>
+import db from "./firebaseInit";
 import firebase from 'firebase/app';
 export default {
     name: 'register',
     data: function() {
         return {
             email: '',
-            password: ''
+            password: '',
+            screenname: ''
         };
     },
     methods: {
         register: function(e) {
             firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-            .then(user => {
-                alert(`Account created for ${user.email}`);
+            .then((user) => {
+                alert(`Account created for ${user.email}`)
                 this.$router.go({path: this.$router.path});
+                console.log(user.user.uid);
+                db.collection("profiles").doc(user.user.uid).set({
+                    screenname: this.screenname
+            }).then(function() {
+                //this.$router.go({path: this.$router.path});
+
+            })
             },
             err => {
                 alert(err.message);

@@ -96,7 +96,7 @@ export default {
               .then(() => {
                 this.$router.push({
                   name: "view-employee",
-                  params: { employee_id: this.employee_id }
+                  params: { employee_id: this.employee_id, name: this.name }
                 });
               });
           });

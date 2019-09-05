@@ -7,9 +7,10 @@
           <!--<h4>{{username}}</h4> //testing props in vue -->
         </div>
         <ul class="right">
-          <li v-if="isLoggedIn">
-            <span class="email black-text">
-             {{currentEmail}} {{currentDisplay}}
+          <li v-if="isLoggedIn" >
+            <span class="email black-text" >
+             {{currentEmail}} {{currentDisplay}} {{employees}}
+             <!--{{username}}  {{employee.name}}-->
               <!--{{currentHandle}}-->
             </span>
           </li>
@@ -39,6 +40,7 @@ import Login from "./Login";
 import axios from "axios";
 import firebase from "firebase/app";
 import username from "./Login";
+import employees from "./employeeList"
 import "firebase/auth";
 export default {
   name: "navbar",
@@ -64,6 +66,7 @@ export default {
       this.isLoggedIn = true;
       this.currentEmail = firebase.auth().currentUser.email;
       this.currentDisplay = firebase.auth().currentUser.displayName;
+      this.username = firebase.auth().currentUser.uid;
       //this.currentHandle = username;
       //console.log(username);}
     }

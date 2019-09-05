@@ -2,8 +2,7 @@
 
   <div>
    
-    <div
-      
+    <div 
       v-for="Post in posts"
       v-bind:key="Post.id"
     >
@@ -11,7 +10,11 @@
      <button class="btn-floating btn-small red" :key="Post.id" @click="deletePost(Post)" ><i class="fa fa-times"></i></button>
       &nbsp;
 
-     {{Post.text}} - {{Post.time}} ({{Post.id}}) {{Post.timestamp}}
+     {{Post.text}} <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      [{{Post.time}}] <br> 
+    <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     ({{Post.id}} --- {{Post.timestamp}}) -->
  <br><br>
     </div>
     
@@ -22,31 +25,37 @@
 import db from "./firebaseInit";
 import firebase from "firebase/app";
 export default {
-  name: "dashboard",
+  name: "postcomponent",
   data() {
     return {
      // text: null,
       id: null,
       posts: [],
      // time: null,
-     // postKey: 0,
-      //timestamp: null
+      postKey: 0,
+      timestamp: null
     };
   },
   props: {
-  //  componentKey: {
-  //    type: Number
-   // }
+    timestamp: {
+      type: Number
+    }
   },
   methods: {
 
       deletePost(Post) {
-      
-     //console.log(this.postKey)
-      //Post.postKey += 1;
-      console.log(Post.id)
-      //if(confirm("Do you really want to delete?"))
-     //this.posts.splice(id, 1)
+        
+      //console.log(db.collection("posts").doc(Post.id).id);
+     console.log(Post.timestamp)
+     var idx = this.posts.indexOf(Post)
+      //this.postKey += 1;
+      //console.log(this.postKey)
+      this.posts.splice(idx, 1)
+      if(confirm("Are you sure that you want to delete this post?"))
+      //this.postKey += 1;
+       //     console.log(this.postKey)
+
+     
       //this.reversedList.splice(id, 1);
       //this.$emit('del-post', Post.id)
       //let docId = `${this.currentUser.uid}`
@@ -54,10 +63,12 @@ export default {
      /* db.collection("posts").doc(Post.id).update({
      posts: firebase.firestore.FieldValue.arrayRemove(Post)  */
 
+
       db.collection("posts")
       .where("time", "==", Post.time)
       .where("text", "==", Post.text)
       .where("timestamp", "==", Post.timestamp)
+      .limit(1)
       .get()
      .then( querySnapshot => {
        querySnapshot.forEach(doc => {
@@ -65,7 +76,9 @@ export default {
          this.$router.push("/")
        })
      }
-     )
+     );
+
+    // this.postKey += 1;
       }
    },
    /*
@@ -88,7 +101,7 @@ export default {
             id: doc.id,
             text: doc.data().text,
             time: doc.data(Date.now()).time, //keep to show timestamp doc.data().time,
-            timestamp: Date.now(),
+          timestamp: doc.data().timestamp
           //  postKey: doc.data().postKey
           };
           this.posts.push(data);
