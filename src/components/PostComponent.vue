@@ -10,9 +10,9 @@
      <button class="btn-floating btn-small red" :key="Post.id" @click="deletePost(Post)" ><i class="fa fa-times"></i></button>
       &nbsp;
 
-     @{{name}}:  {{Post.text}}<br> 
+     @{{name}} • {{Post.time}}<br> 
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      [{{Post.time}}] <br> 
+      {{Post.text}} <br> 
     <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
      ({{Post.id}} --- {{Post.timestamp}}) -->
  <br><br>
