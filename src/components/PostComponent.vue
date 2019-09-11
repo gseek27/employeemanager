@@ -10,7 +10,7 @@
      <button class="btn-floating btn-small red" :key="Post.id" @click="deletePost(Post)" ><i class="fa fa-times"></i></button>
       &nbsp;
 
-     {{Post.text}} <br>
+     @{{name}}:  {{Post.text}}<br> 
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       [{{Post.time}}] <br> 
     <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -24,6 +24,7 @@
 <script>
 import db from "./firebaseInit";
 import firebase from "firebase/app";
+import { name } from "./navbar"
 export default {
   name: "postcomponent",
   data() {
@@ -33,20 +34,25 @@ export default {
       posts: [],
      // time: null,
       postKey: 0,
-      timestamp: null
+      timestamp: null,//,
+      name
+    //  name: null,
+   // profile: {
+   //   name: false
+  //  }
     };
   },
   props: {
-    timestamp: {
-      type: Number
-    }
+   // timestamp: {
+   //   type: Number
+   // }
   },
   methods: {
 
       deletePost(Post) {
         
       //console.log(db.collection("posts").doc(Post.id).id);
-     console.log(Post.timestamp)
+     //console.log(Post.timestamp)
      var idx = this.posts.indexOf(Post)
       //this.postKey += 1;
       //console.log(this.postKey)
@@ -105,10 +111,18 @@ export default {
           //  postKey: doc.data().postKey
           };
           this.posts.push(data);
-          console.log(doc.data());
-          console.log(doc.data(Date.now()).time);
+          //console.log(doc.data());
+          //console.log(doc.data(Date.now()).time);
+          console.log(doc.data())
+          
         });
       });
+
+//if (firebase.auth().currentUser) {
+db.collection('profiles').doc(firebase.auth().currentUser.uid).get().then(doc => {
+        this.name = doc.data().name
+    })
+//}
   }
 };
 </script>

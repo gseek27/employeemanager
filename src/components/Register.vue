@@ -86,7 +86,7 @@ export default {
 
               this.$router.replace('/');   // MUST use refresh to push new username into firestore database
               setTimeout(() => 
-              this.$router.go(0), 500); // MUST wait and refresh browser to show NavBar contents
+              this.$router.go(0), 100); // MUST wait and refresh browser to show NavBar contents
               //this.$router.go(this.$router.path);
             }
             //,

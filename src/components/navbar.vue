@@ -11,7 +11,7 @@
         <ul class="right">
           <li v-if="isLoggedIn" >
             <span class="email black-text" >
-             {{currentEmail}} {{currentDisplay}}  {{name}} {{username}}
+             @{{name}} - ({{currentEmail}}{{currentDisplay}}) 
              <!--{{username}}  {{employee.name}} {{employees}} {{name}} {{username}} -->
               <!--{{currentHandle}}-->
               
