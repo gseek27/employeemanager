@@ -35,7 +35,7 @@ export default {
      // time: null,
       postKey: 0,
       timestamp: null,//,
-      name
+      name: null
     //  name: null,
    // profile: {
    //   name: false
