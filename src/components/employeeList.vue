@@ -15,6 +15,10 @@
           <!--<i class="fa fa-eye"></i>-->
         </router-link>
       </li>
+
+      <div class="editable-text">
+  {{message}}
+</div>
     </ul>
 
 <!--
@@ -33,9 +37,38 @@ export default {
   name: "employeelist",
   data() {
     return {
-      employees: []
+      employees: [],
     };
   },
+   /*methods: {
+    enableEditing: function(){
+      this.tempValue = this.value;
+      this.editing = true;
+    },
+    disableEditing: function(){
+      this.tempValue = null;
+      this.editing = false;
+    },
+    saveEdit: function(){
+      // However we want to save it to the database
+      this.value = this.tempValue;
+      this.disableEditing();
+    }
+  },*/
+  //methods: {
+   /* getProfile () {
+      this.$http.post(this.$store.state.api_url + 'user/getprofile', {
+        auth_token: localStorage.getItem('jewt')
+      }).then(({ data }) => {
+        this.display_name = data.details.display_name;
+        this.posts = data.details.posts;
+      })
+    } */
+  //},
+  beforeMount () {
+   // this.getProfile();//
+  }
+  ,
   created() {
     db.collection("employees")
       .orderBy("dept")
@@ -55,4 +88,39 @@ export default {
       });
   }
 };
+
+new Vue({
+  el: '.editable-text',
+  prop: ['type'],
+  template: `
+    <div v-if="!editing">
+      <span class='text' @click="enableEditing">{{value}}</span>
+    </div>
+    <div v-if="editing">
+      <input v-model="tempValue" class="input"/>
+      <button @click="disableEditing"> Cancel </button>
+      <button @click="saveEdit"> Save </button>
+    </div>
+  `,
+  data: {
+    value: 'Click Me!',
+    tempValue: null,
+    editing: false
+  },
+  methods: {
+    enableEditing: function(){
+      this.tempValue = this.value;
+      this.editing = true;
+    },
+    disableEditing: function(){
+      this.tempValue = null;
+      this.editing = false;
+    },
+    saveEdit: function(){
+      // However we want to save it to the database
+      this.value = this.tempValue;
+      this.disableEditing();
+    }
+  }
+})
 </script>

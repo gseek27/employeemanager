@@ -6,6 +6,7 @@ import viewemployee from "@/components/viewemployee";
 import editEmployee from "@/components/editEmployee";
 import employeeList from "@/components/employeeList";
 import Login from "@/components/Login";
+// ----> import Profile from "@/components/Profile";
 import Register from "@/components/Register";
 import firebase from "firebase/app";
 
