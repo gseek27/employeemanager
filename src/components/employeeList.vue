@@ -16,8 +16,17 @@
         </router-link>
       </li>
 
-      <div class="editable-text">
-  Info...
+      <div id="app">
+    <template v-repeat="number in numbers">
+        <span v-show="!number.edit"
+              v-on="click: toggleEdit(this, number)">{{number.val}}</span>
+        
+        <input type="text"
+               v-el="input"
+               v-model="number.val"
+               v-show="number.edit"
+               v-on="blur: saveEdit(ev, number)"> <br>
+    </template>
 </div>
     </ul>
 
@@ -90,36 +99,38 @@ export default {
 };
 
 new Vue({
-  el: '.editable-text',
-  prop: ['type'],
-  template: `
-    <div v-if="!editing">
-      <span class='text' @click="enableEditing">{{value}}</span>
-    </div>
-    <div v-if="editing">
-      <input v-model="tempValue" class="input"/>
-      <button @click="disableEditing"> Cancel </button>
-      <button @click="saveEdit"> Save </button>
-    </div>
-  `,
+  el: '#app',
   data: {
-    value: 'Click Me!',
-    tempValue: null,
-    editing: false
+    numbers: [
+        {
+            val: 'one',
+            edit: false
+        },
+        {	val: 'two',
+         	edit: false
+        },
+        {
+            val: 'three',
+            edit: false
+        }
+    ]
   },
+  
   methods: {
-    enableEditing: function(){
-      this.tempValue = this.value;
-      this.editing = true;
+  	toggleEdit: function(ev, number){
+    	number.$set('edit', !number.edit);
+        
+        // Focus input field
+        if(number.edit){
+            Vue.nextTick(function() {
+    			ev.$$.input.focus();
+	  		})   
+        }
     },
-    disableEditing: function(){
-      this.tempValue = null;
-      this.editing = false;
-    },
-    saveEdit: function(){
-      // However we want to save it to the database
-      this.value = this.tempValue;
-      this.disableEditing();
+      
+    saveEdit: function(ev, number){
+     	//save your changes
+      	this.toggleEdit(ev, number);
     }
   }
 })
