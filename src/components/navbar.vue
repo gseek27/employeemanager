@@ -9,7 +9,7 @@
         <ul class="right">
           <li v-if="isLoggedIn">
             <span class="email black-text">
-             {{name}} {{currentEmail}} {{currentDisplay}}
+             {{name}} {{currentEmail}} - {{currentDisplay}}
               <!--{{currentHandle}}-->
             </span>
           </li>
