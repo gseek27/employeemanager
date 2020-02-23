@@ -17,7 +17,7 @@
       </li>
 
       <div class="editable-text">
-  Info..
+  Info...
 </div>
     </ul>
 
