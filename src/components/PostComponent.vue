@@ -1,66 +1,91 @@
 <template>
- <div class="container"> 
-  <h1>Latest Posts</h1>
-    <div class="create-post">
-    <label for="create-post">Say Something...</label>
 
-    <input type="text" id="create-post" v-model="text" placeholder="Create a post">
-    <button v-on:click="createPost">Post</button>
-    </div>
+  <div>
+   
+    <div
+      
+      v-for="Post in posts"
+      v-bind:key="Post.id"
+    >
+     
+     <button class="btn-floating btn-small red" :key="Post.id" @click="deletePost(Post)" ><i class="fa fa-times"></i></button>
+      &nbsp;
 
- <!--create post here -->
-<hr>
-<p class="error" v-if="error">{{ error }}</p>
-    <div class="posts-container">
-  <!--
-<div class="post"
-  v-for="(post, index) in posts"
-  v-bind:item="post"
-  v-bind:index="index"
-  v-bind:key="post._id"
-  v-on:dblclick-bind:key="employee.id"ck="deletePost(post._id)"
-  >
-   -->
-  {{ `${post.createdAt.getDate()}/${post.createdAt.getMonth()}/${post.createdAt.getFullYear()}` }}
-  <p class="text">{{ post.text }}</p>
+     {{Post.text}} <br>
+      [{{Post.time}}] <br> 
+     ({{Post.id}} --- {{Post.timestamp}})
+ <br><br>
     </div>
-</div>
+    
+  </div>
 </template>
 
 <script>
-import PostService from '../PostService';
+import db from "./firebaseInit";
+import firebase from "firebase/app";
 export default {
-  name: 'PostComponent',
+  name: "postcomponent",
   data() {
     return {
+     // text: null,
+      id: null,
       posts: [],
-      error: '',
-      text: ''
-    }
+     // time: null,
+      postKey: 0,
+      timestamp: null
+    };
   },
-  async created() {
-    try {
-      this.posts = await PostService.getPosts();
-    } catch(err) {
-      this.error = err.message;
+  props: {
+    timestamp: {
+      type: Number
     }
   },
   methods: {
-        createPost () {
-            db.collection('PostComponent').add({
-                PostComponent_id: this.PostComponent_id,
-                text: this.text
-            })
-            .then(docRef => this.$router.push('/'))
-            .catch(error => console.log(err))
-        }
-    }
+      deletePost(Post) {
+        
+     console.log(Post.timestamp)
+     var idx = this.posts.indexOf(Post)
+      this.posts.splice(idx, 1)
+      if(confirm("Are you sure that you want to delete this post?"))
+      db.collection("posts")
+      .where("time", "==", Post.time)
+      .where("text", "==", Post.text)
+      .where("timestamp", "==", Post.timestamp)
+      .limit(1)
+      .get()
+     .then( querySnapshot => {
+       querySnapshot.forEach(doc => {
+         this.time = doc.ref.delete()
+         this.$router.push("/")
+       })
+     }
+     );
+     this.postKey += 1;
+      }
+   },    
     
+  
+  created() {  // shows and orders the list of posts. when they are "created, it takrs a "snapshot"...
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          const data = {
+            id: doc.id,
+            text: doc.data().text,
+            time: doc.data(Date.now()).time, //keep to show timestamp doc.data().time,
+          timestamp: doc.data().timestamp
+          };
+          this.posts.push(data);
+          console.log(doc.data());
+          console.log(doc.data(Date.now()).time);
+        });
+      });
+  }
 };
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 </style>

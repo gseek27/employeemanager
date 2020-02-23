@@ -44,7 +44,7 @@
 
 <script>
 import firebase from "firebase/app";
-import axios from "axios";
+//import axios from "axios";
 export default {
   name: "login",
   components: {},

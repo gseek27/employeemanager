@@ -36,7 +36,7 @@
 
 <script>
 import Login from "./Login";
-import axios from "axios";
+//import axios from "axios";
 import firebase from "firebase/app";
 import username from "./Login";
 import "firebase/auth";
