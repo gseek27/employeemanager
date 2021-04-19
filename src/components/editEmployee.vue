@@ -23,6 +23,14 @@
             <input type="text" v-model="position" required />
           </div>
         </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="file" accept="image/*" @change="onChange" />
+  <div id="preview">
+    <img v-if="item.imageUrl" :src="item.imageUrl" />
+  </div>
+          </div>
+        </div>
         <button type="submit" class="btn">Submit</button>
         <router-link to="/" class="btn grey">Cancel</router-link>
       </form>
@@ -39,7 +47,9 @@ export default {
       employee_id: null,
       name: null,
       dept: null,
-      position: null
+      position: null,
+      image : null,
+      imageUrl: null
     };
   },
 
@@ -96,6 +106,11 @@ export default {
               });
           });
         });
+    },
+    onChange(e) {
+      const file = e.target.files[0]
+      this.image = file
+      this.item.imageUrl = URL.createObjectURL(file)
     }
   }
 };
