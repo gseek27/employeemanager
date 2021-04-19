@@ -3,24 +3,29 @@
     <h3>Edit Profile</h3>
     <div class>
       <form @submit.prevent="updateEmployee" class="col s12">
-       <!-- <div class="row">
+        <!-- <div class="row">
           <div class="input-field col s12">
             <input disabled type="text" v-model="employee_id" required />
           </div>
         </div>-->
+        <label for="Name">Name:</label>
+
         <div class="row">
-          <div class="input-field col s12">
-            <input type="text" v-model="name" required />
+          <div class="input-field col s4">
+            <input type="text" id="Name" v-model="name" required />
           </div>
         </div>
+        <label for="Location">Location:</label>
+
         <div class="row">
-          <div class="input-field col s12">
-            <input type="text" v-model="dept" required />
+          <div class="input-field col s4">
+            <input type="text" id="Location" v-model="dept" required />
           </div>
         </div>
+        <label for="bio">Bio:</label>
         <div class="row">
           <div class="input-field col s12">
-            <input type="text" v-model="position" required />
+            <input id="bio" type="text" v-model="position" required />
           </div>
         </div>
         <div class="row">
@@ -101,7 +106,7 @@ export default {
               .then(() => {
                 this.$router.push({
                   name: "view-employee",
-                  params: { employee_id: this.employee_id }
+                  params: { employee_id: this.employee_id, name: this.name }
                 });
               });
           });

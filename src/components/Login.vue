@@ -44,7 +44,12 @@
 
 <script>
 import firebase from "firebase/app";
+<<<<<<< HEAD
 //import axios from "axios";
+=======
+import db from "./firebaseInit";
+import axios from "axios";
+>>>>>>> 242d60ddbd483f1d85265439bb830d0300c89188
 export default {
   name: "login",
   components: {},
@@ -78,6 +83,7 @@ export default {
           user => {
             alert(`You are logged in as ${user.email}`);
             this.$router.go({ path: this.$router.path });
+            console.log(user);
           },
           err => {
             alert(err.message);
@@ -93,6 +99,7 @@ export default {
         .signInWithRedirect(provider)
         .then(result => {
           this.$router.go({ path: this.$router.path });
+          console.log(result);
         })
         .catch(err => {
           alert("Oops. " + err.message);
@@ -102,7 +109,7 @@ export default {
       firebase
         .auth()
         .signInWithRedirect(new firebase.auth.TwitterAuthProvider())
-        .then(function(userCredential) {
+        .then((userCredential) =>  {
           // All additional user info is available here.
 
           //console.log(username);
@@ -110,9 +117,9 @@ export default {
           console.log(userCredential.additionalUserInfo.profile.screen_name);
           console.log(userCredential.additionalUserInfo.profile.screen_name);
           const test = userCredential.additionalUserInfo.profile.screen_name;
-          console.log(username);
+          console.log(userCredential);
           //console.log(this.username);
-          this.$router.go({ path: this.$router.path });
+          //this.$router.go({ path: this.$router.path });
         })
         .catch(function(error) {
           // Error occurred.

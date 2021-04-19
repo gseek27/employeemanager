@@ -6,8 +6,23 @@ import viewemployee from "@/components/viewemployee";
 import editEmployee from "@/components/editEmployee";
 import employeeList from "@/components/employeeList";
 import Login from "@/components/Login";
+// ----> import Profile from "@/components/Profile";
 import Register from "@/components/Register";
 import firebase from "firebase/app";
+
+const accountdetails = document.querySelector('.username');
+
+(user) => {
+ 
+    db.collection('profiles').doc(user.uid).get().then(doc => {
+      const html = `
+      <div>${doc.data().name}</div>
+      `;
+      accountdetails.innerHTML = html;
+    })
+   
+  }
+
 
 Vue.use(Router);
 
